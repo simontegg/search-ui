@@ -10,21 +10,14 @@ var ObservArray = require('observ-array');
 
 var ItemComponent = require('./lib/ItemComponent');
 
-module.exports = SearchComponent;
-
-
-
-
 function SearchComponent () {
 
   var state = ObservStruct({
-    search: ObservStruct({
-      list: ObservArray([
-        ObservStruct({
-          item: ItemComponent(...).state
-        })
-        ])
-    })
+    list: ObservArray([
+      ObservStruct({
+        item: ItemComponent().state
+      })
+    ])
   });
 
   return { state: state };
@@ -34,7 +27,13 @@ function SearchComponent () {
 
 
 
-search.render = function (state) {
-  return h('ul')
+SearchComponent.render = function (state) {
+  return h('ul', state.search.list.map(function(item, i) {
+    return ItemComponent(item, is)
+  }))
   ;
 }
+
+
+
+module.exports = SearchComponent;
