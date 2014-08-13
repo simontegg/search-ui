@@ -24,14 +24,13 @@ function SearchComponent () {
 }
 
 
-
-
-
 SearchComponent.render = function (state) {
-  return h('ul', state.search.list.map(function(item, i) {
-    return ItemComponent(item, is)
-  }))
-  ;
+  return h('ul', state.list.map(function(item, i) {
+    return h('li', [
+      ItemComponent.render(item, i)
+    ]
+    )
+  }));
 }
 
 
